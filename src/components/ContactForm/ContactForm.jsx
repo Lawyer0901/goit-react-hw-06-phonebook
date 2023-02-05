@@ -1,54 +1,56 @@
 import { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { Form, Label, Input } from './ContactForm.styled';
-
-export const ContactForm = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+import { addUser } from 'redux/userNameSlice';
+import { useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+export const ContactForm = () => {
+  const [userName, setUserName] = useState('');
+  const [userNumber, setUserNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleChangeName = e => {
     const { name, value } = e.target;
-    switch (name) {
-      case 'name':
-        return setName(value);
-      case 'number':
-        return setNumber(value);
-      default:
-        break;
+    if (name === 'userName') {
+      setUserName(value);
+    } else if (name === 'userNumber') {
+      setUserNumber(value);
     }
   };
 
   const hendleSubmit = e => {
     e.preventDefault();
-    const addUser = onSubmit({ name, number });
-    if (addUser === null) {
+    const newUser = { id: nanoid(), name: userName, number: userNumber };
+    console.log(newUser);
+    if (newUser === null) {
       return;
     } else {
-      setName('');
-      setNumber('');
-      return;
+      dispatch(addUser(newUser));
+      setUserName('');
+      setUserNumber('');
     }
   };
+
   return (
     <Form onSubmit={hendleSubmit}>
       <Label>
         Name
         <Input
           type="text"
-          name="name"
+          name="userName"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           onChange={handleChangeName}
-          value={name}
+          value={userName}
         />
       </Label>
       <Label>
         Number
         <Input
           type="tel"
-          name="number"
-          value={number}
+          name="userNumber"
+          value={userNumber}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

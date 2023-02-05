@@ -1,72 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
-import { Container } from './Container/Container';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
+// import React, { useState, useEffect } from 'react';
+// import { nanoid } from 'nanoid';
+// import { Container } from './Container/Container';
+// import { ContactForm } from './ContactForm/ContactForm';
+// import { ContactList } from './ContactList/ContactList';
+// import { Filter } from './Filter/Filter';
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from 'pages/Layout';
+import { Form } from 'pages/ContactForm';
 
-const useLocalStorage = (key, defaultVelue) => {
-  const [state, setState] = useState(() => {
-    return JSON.parse(window.localStorage.getItem(key)) ?? defaultVelue;
-  });
-
-  useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(state));
-  }, [key, state]);
-  return [state, setState];
+export const App = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Form />} />
+      </Route>
+    </Routes>
+  );
 };
 
-export function App() {
-  const [contacts, setContacts] = useLocalStorage('contacts', []);
-  const [filter, setFilter] = useState('');
+// const useLocalStorage = (key, defaultVelue) => {
+//   const [state, setState] = useState(() => {
+//     return JSON.parse(window.localStorage.getItem(key)) ?? defaultVelue;
+//   });
 
-  const addContact = obj => {
-    const newUser = {
-      id: nanoid(),
-      ...obj,
-    };
-    const existUser = contacts.some(el => el.name === newUser.name);
-    if (existUser) {
-      alert(`${newUser.name} is already in contacts`);
-      return null;
-    } else {
-      setContacts(prevState => {
-        return [...prevState, newUser];
-      });
-    }
-  };
+//   useEffect(() => {
+//     window.localStorage.setItem(key, JSON.stringify(state));
+//   }, [key, state]);
+//   return [state, setState];
+// };
 
-  const handleDeleteContact = id => {
-    setContacts(contacts.filter(contact => contact.id !== id));
-  };
+// export function App() {
+//   const [contacts, setContacts] = useLocalStorage('contacts', []);
+//   const [filter, setFilter] = useState('');
 
-  const handleInputValue = e => {
-    const { value } = e.target;
-    setFilter(value);
-  };
+//   const addContact = obj => {
+//     const newUser = {
+//       id: nanoid(),
+//       ...obj,
+//     };
+//     const existUser = contacts.some(el => el.name === newUser.name);
+//     if (existUser) {
+//       alert(`${newUser.name} is already in contacts`);
+//       return null;
+//     } else {
+//       setContacts(prevState => {
+//         return [...prevState, newUser];
+//       });
+//     }
+//   };
 
-  // Функция поиска контакта
+//   const handleDeleteContact = id => {
+//     setContacts(contacts.filter(contact => contact.id !== id));
+//   };
 
-  const handleFindeContact = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
+//   const handleInputValue = e => {
+//     const { value } = e.target;
+//     setFilter(value);
+//   };
 
-  return (
-    <Container>
-      <h1>Phonebook</h1>
-      <ContactForm onSubmit={addContact} />
-      <Filter handleInputValue={handleInputValue} filterValue={filter} />
-      <h2>Contacts</h2>
-      <ContactList
-        contacts={handleFindeContact()}
-        deleteContact={handleDeleteContact}
-      />
-    </Container>
-  );
-}
+//   // Функция поиска контакта
+
+//   const handleFindeContact = () => {
+//     const normalizedFilter = filter.toLowerCase();
+//     return contacts.filter(contact =>
+//       contact.name.toLowerCase().includes(normalizedFilter)
+//     );
+//   };
+
+//   return (
+//     <Container>
+//       <h1>Phonebook</h1>
+//       <ContactForm onSubmit={addContact} />
+//       <Filter handleInputValue={handleInputValue} filterValue={filter} />
+//       <h2>Contacts</h2>
+//       <ContactList
+//         contacts={handleFindeContact()}
+//         deleteContact={handleDeleteContact}
+//       />
+//     </Container>
+//   );
+// }
 
 // export class oldApp extends Component {
 //   state = {
