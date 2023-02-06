@@ -9,10 +9,13 @@ export const userNameSlice = createSlice({
     addUser: (state, { payload }) => {
       state.users.push(payload);
     },
+    deleteUser: (state, { payload }) => {
+      state.users = state.users.filter(el => el.id !== payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addUser } = userNameSlice.actions;
+export const { addUser, deleteUser } = userNameSlice.actions;
 
 export default userNameSlice.reducer;

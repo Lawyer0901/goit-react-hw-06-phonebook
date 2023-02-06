@@ -1,8 +1,11 @@
 import { ContactForm } from 'components/ContactForm/ContactForm';
-import { useSelector } from 'react-redux';
-import { selectUsers } from 'redux/usersSelector';
+import { ContactList } from 'components/ContactList/ContactList';
 
 export const Form = () => {
-  const getUsers = useSelector(selectUsers);
-  return <ContactForm />;
+  return (
+    <>
+      <ContactForm />
+      <ContactList />
+    </>
+  );
 };
