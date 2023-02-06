@@ -22,7 +22,9 @@ export const ContactForm = () => {
     e.preventDefault();
     const newUser = { id: nanoid(), name: userName, number: userNumber };
     console.log(newUser);
+
     if (newUser === null) {
+      alert(`${newUser.name} is already in contacts`);
       return;
     } else {
       dispatch(addUser(newUser));

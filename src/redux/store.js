@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import usersReduser from './userNameSlice';
+import filterReduser from './filterSlice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -21,6 +22,7 @@ const persistedReducer = persistReducer(persistConfig, usersReduser);
 export const store = configureStore({
   reducer: {
     users: persistedReducer,
+    filter: filterReduser,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
