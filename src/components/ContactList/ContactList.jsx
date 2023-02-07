@@ -8,22 +8,20 @@ import { deleteUser } from 'redux/userNameSlice';
 import { useMemo } from 'react';
 
 export function ContactList() {
-  const users = useSelector(selectUsers);
+  const contacts = useSelector(selectUsers);
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
   const filterNormalize = filter => filter.toLowerCase();
 
   const contactListToDisplay = useMemo(
     () =>
-      users.filter(({ name }) =>
+      contacts.filter(({ name }) =>
         name.toLowerCase().includes(filterNormalize(filter))
       ),
-    [users, filter]
+    [contacts, filter]
   );
 
-  console.log(dispatch);
-  console.log(users);
-  return users.length > 0 ? (
+  return contacts.length > 0 ? (
     <ul>
       {contactListToDisplay.map(el => {
         return (

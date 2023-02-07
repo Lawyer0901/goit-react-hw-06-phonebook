@@ -9,7 +9,7 @@ export const ContactForm = () => {
   const [userName, setUserName] = useState('');
   const [userNumber, setUserNumber] = useState('');
   const dispatch = useDispatch();
-  const users = useSelector(selectUsers);
+  const contacts = useSelector(selectUsers);
 
   const handleChangeName = e => {
     const { name, value } = e.target;
@@ -25,7 +25,7 @@ export const ContactForm = () => {
     const newUser = { id: nanoid(), name: userName, number: userNumber };
     console.log(newUser);
 
-    const existUser = users.some(el => el.name === newUser.name);
+    const existUser = contacts.some(el => el.name === newUser.name);
 
     if (newUser === null || existUser) {
       alert(`${newUser.name} is already in contacts`);
