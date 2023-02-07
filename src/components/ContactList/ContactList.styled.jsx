@@ -9,3 +9,8 @@ export const Text = styled.p`
   margin-bottom: 5px;
   color: ${p => p.theme.colors.accent};
 `;
+
+export const SpanText = styled.span`
+  /* display: block; */
+  color: ${p => p.theme.colors.red};
+`;

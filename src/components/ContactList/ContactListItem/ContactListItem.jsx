@@ -1,12 +1,14 @@
-import { Text } from '../ContactList.styled';
+import { Text, SpanText } from '../ContactList.styled';
 // import PropTypes from 'prop-types';
 
 export function ContactListItem({ name, number, onClick }) {
   return (
     <li>
       <Text>
-        Contact Name:{name}
-        <span>Contact number: {number}</span>
+        Contact Name:<SpanText>{name}</SpanText>
+        <span>
+          Contact number: <SpanText>{number}</SpanText>
+        </span>
         <button onClick={onClick}>Delete contact</button>
       </Text>
     </li>
