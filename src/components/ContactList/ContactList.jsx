@@ -6,6 +6,8 @@ import { selectFilter, selectUsers } from 'redux/usersSelector';
 import { useDispatch } from 'react-redux';
 import { deleteUser } from 'redux/userNameSlice';
 import { useMemo } from 'react';
+import { Table, Wraper } from './ContactList.styled';
+// import { Container } from 'components/Container/Container';
 
 export function ContactList() {
   const contacts = useSelector(selectUsers);
@@ -22,18 +24,20 @@ export function ContactList() {
   );
 
   return contacts.length > 0 ? (
-    <ul>
-      {contactListToDisplay.map(el => {
-        return (
-          <ContactListItem
-            key={el.id}
-            name={el.name}
-            number={el.number}
-            onClick={() => dispatch(deleteUser(el.id))}
-          />
-        );
-      })}
-    </ul>
+    <Wraper>
+      <Table>
+        {contactListToDisplay.map(el => {
+          return (
+            <ContactListItem
+              key={el.id}
+              name={el.name}
+              number={el.number}
+              onClick={() => dispatch(deleteUser(el.id))}
+            />
+          );
+        })}
+      </Table>
+    </Wraper>
   ) : (
     <p>There is no contact</p>
   );
